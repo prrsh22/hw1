@@ -69,11 +69,7 @@ function Game() {
 
                     if (cell.isMine) return gameOver(false);
 
-                    const neighbors = getNeighbors(cell);
-                    console.log(neighbors);
-                    cell.dom.textContent = neighbors.filter(neighbor => neighbor.isMine === true).length;
-
-                    cell.clicked = true;
+                    openCell(cell);
                 });
 
                 const cell = {
@@ -107,6 +103,21 @@ function Game() {
         }
 
         return neighbors;
+    }
+
+    const openCell = (cell) => {
+                
+        cell.clicked = true;
+        cell.dom.classList.add('opened');
+
+        const neighbors = getNeighbors(cell);
+
+        const numberOfMinesAround = neighbors.filter(neighbor => neighbor.isMine === true).length;
+        cell.dom.textContent = numberOfMinesAround;
+
+        if (numberOfMinesAround === 0) {
+            neighbors.filter(n => !n.clicked).forEach(n => openCell(n));
+        }
     }
 
 };
