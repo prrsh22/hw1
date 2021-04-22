@@ -72,6 +72,11 @@ function Game() {
                     openCell(cell);
                 });
 
+                dom.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    toggleMark(cell);
+                });
+
                 const cell = {
                     dom,
                     x: j,
@@ -116,8 +121,14 @@ function Game() {
         cell.dom.textContent = numberOfMinesAround;
 
         if (numberOfMinesAround === 0) {
-            neighbors.filter(n => !n.clicked).forEach(n => openCell(n));
+            neighbors.filter(n => !n.clicked && !n.marked).forEach(n => openCell(n));
         }
+    }
+
+    const toggleMark = (cell) => {
+        if (cell.clicked) return;
+        cell.dom.classList.toggle('marked');
+        cell.marked = true;
     }
 
 };

@@ -15,3 +15,9 @@ h1 {
 .opened {
     background-color: lightgray;
 }
+.marked {
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUfcu1TUZODo5TFoKJbHmUT9qAnB01flqmwQ&usqp=CAU);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
