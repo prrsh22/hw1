@@ -1,11 +1,47 @@
 function Game() {
     const gameBoard = document.getElementById('gameBoard');
     const rows = [];
-    const width = 10;
-    const height = 10;
 
+    let width;
+    let height;
+    let numberOfMines;
 
-    const initGame = (width, height, numberOfMines) => {
+    const initialScreenSetting = () => {
+        const startBtn = document.getElementById('startBtn');
+        startBtn.addEventListener('click', () => {
+            initGame(checkInput());
+        });
+    }
+
+    const checkInput = () => {
+        const widthInput = document.getElementById('widthInput').value;
+        const heightInput = document.getElementById('heightInput').value;
+        const numberOfMinesInput = document.getElementById('numberOfMinesInput').value;
+        let isValid = false;
+
+        if (widthInput && heightInput && numberOfMinesInput) {
+            if (widthInput > 30 || widthInput < 5 || heightInput > 30 || heightInput < 5) {
+                alert('가로, 세로 길이는 5 이상 30 이하여야 합니다!');
+            } else if (numberOfMinesInput < 0 || numberOfMinesInput > widthInput * heightInput) {
+                alert('지뢰의 개수는 가로 * 세로 길이보다 작거나 같아야 합니다!');
+            } else {
+                width = widthInput;
+                height = heightInput;
+                numberOfMines = numberOfMinesInput;
+                isValid = true;
+            }
+        } else {
+            alert('모든 값을 입력해주세요!');
+        }
+
+        return {isValid, width, height, numberOfMines};
+    }
+
+    const initGame = ({isValid, width, height, numberOfMines}) => {
+
+        if (!isValid) return;
+
+        document.getElementById('initialScreen').remove();
 
         for (let i = 0; i < height; i++) {
             const row = [];
@@ -44,7 +80,7 @@ function Game() {
         }
     }
 
-    initGame(width, height, 10);
+    initialScreenSetting();
 
     const gameOver = (isWin) => {
         if (!isWin) alert('bannnnnnnnng');

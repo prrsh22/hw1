@@ -6,8 +6,27 @@
     <body>
         <div>
             <h1>Mine Sweeper</h1>
-            <div id="gameBoard">
-           </div>
+
+            <div id="initialScreen">
+
+                <p>가로, 세로 모두 5 이상 30 이하여야 합니다.</p>
+                
+                <div>
+                    맵 가로 길이: <input id="widthInput" type="number" name="width" />
+                </div>
+
+                <div>
+                    맵 세로 길이: <input id="heightInput" type="number" name="height" />
+                </div>
+
+                <div>
+                    지뢰 개수: <input id="numberOfMinesInput" type="number" name="numberOfMines" />
+                </div>
+
+                <button id="startBtn">게임 시작</button>
+            </div>
+
+            <div id="gameBoard"></div>
         </div>
         <script src="game.js"></script>
     </body>
