@@ -128,7 +128,7 @@ function Game() {
     const toggleMark = (cell) => {
         if (cell.clicked) return;
         cell.dom.classList.toggle('marked');
-        cell.marked = true;
+        cell.marked = !cell.marked;
     }
 
 };
