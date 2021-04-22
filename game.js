@@ -43,6 +43,15 @@ function Game() {
 
         document.getElementById('initialScreen').remove();
 
+        // 지뢰 넣을 인덱스 설정(순서 섞기)
+        let cells = Array(width * height).fill(false);
+        cells.fill(true, 0, numberOfMines);
+        
+        for (let i = cells.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cells[i], cells[j]] = [cells[j], cells[i]];
+        }
+
         for (let i = 0; i < height; i++) {
             const row = [];
             const rowDom = document.createElement('div');
@@ -73,7 +82,7 @@ function Game() {
                     y: i,
                     clicked: false,
                     marked: false,
-                    isMine: 0.3 > Math.random()
+                    isMine: cells[i*width+j]
                 }
                 row.push(cell);
             }
@@ -99,7 +108,7 @@ function Game() {
 
         return neighbors;
     }
-    console.log(rows);
+
 };
 
 Game();
