@@ -118,7 +118,7 @@ function Game() {
         const neighbors = getNeighbors(cell);
 
         const numberOfMinesAround = neighbors.filter(neighbor => neighbor.isMine === true).length;
-        cell.dom.textContent = numberOfMinesAround;
+        cell.dom.textContent = numberOfMinesAround || '';
 
         if (numberOfMinesAround === 0) {
             neighbors.filter(n => !n.clicked && !n.marked).forEach(n => openCell(n));
