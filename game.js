@@ -129,18 +129,21 @@ function Game() {
         gameEnded = true;
         clearInterval(timer);
 
-        if (!isWin) {
-            alert('bannnnnnnnng');
-            rows.forEach(r => {
-                r.filter(cell => cell.isMine).forEach(mine => {
-                    mine.dom.classList.add('mine');
-                });
-
-                r.filter(cell => !cell.isMine && cell.marked).forEach(mine => {
-                    mine.dom.classList.add('wrong');
-                })
-            });
+        if (isWin) {
+            alert('🥳 클리어!');
+        } else {
+            alert('😱으악! 지뢰입니다!😱');
         }
+
+        rows.forEach(r => {
+            r.filter(cell => cell.isMine).forEach(mine => {
+                mine.dom.classList.add('mine');
+            });
+
+            r.filter(cell => !cell.isMine && cell.marked).forEach(mine => {
+                mine.dom.classList.add('wrong');
+            })
+        });
     }
 
     const getNeighbors = (cell) => {
@@ -170,6 +173,8 @@ function Game() {
         if (numberOfMinesAround === 0) {
             neighbors.filter(n => !n.clicked && !n.marked).forEach(n => openCell(n));
         }
+
+        checkStatus();
     }
 
     const toggleMark = (cell) => {
@@ -199,6 +204,16 @@ function Game() {
         setTimeout(() => initGame({isValid: true, width, height, numberOfMines}), 2000);
     }
 
+    const checkStatus = () => {
+        let numberOfCellsOpened = 0;
+        rows.forEach(r => {
+            numberOfCellsOpened += r.filter(c => c.clicked).length;
+        });
+        
+        if (numberOfCellsOpened === width * height - numberOfMines) {
+            return gameOver(true);
+        }
+    }
 };
 
 Game();
