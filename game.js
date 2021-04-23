@@ -44,6 +44,22 @@ function Game() {
 
         document.getElementById('initialScreen').remove();
 
+        //메뉴, 상태바 삽입
+        const statusBar = document.createElement('div');
+        statusBar.className = 'statusBar';
+        statusBar.innerHTML = `
+            <div>
+                남은 지뢰 개수: <span id="minesLeft"></span>
+            </div>
+            <div>
+                게임 시간: <span id="timePassed"></span>
+            </div>
+            <div>
+               <button id="restartBtn">재시작</button>
+            </div>
+        `
+        gameBoard.appendChild(statusBar);
+
         // 지뢰 넣을 인덱스 설정(순서 섞기)
         let cells = Array(width * height).fill(false);
         cells.fill(true, 0, numberOfMines);
@@ -51,7 +67,7 @@ function Game() {
         for (let i = cells.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [cells[i], cells[j]] = [cells[j], cells[i]];
-        }
+        }        
 
         for (let i = 0; i < height; i++) {
             const row = [];
