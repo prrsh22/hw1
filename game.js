@@ -6,6 +6,7 @@ function Game() {
     let height;
     let numberOfMines;
     let gameEnded = false;
+    let timer;
 
     const initialScreenSetting = () => {
         const startBtn = document.getElementById('startBtn');
@@ -104,12 +105,18 @@ function Game() {
                 row.push(cell);
             }
         }
+
+        //타이머 시작
+        timer = setInterval(addTimePassed, 1000);
+
     }
 
     initialScreenSetting();
 
     const gameOver = (isWin) => {
         gameEnded = true;
+        clearInterval(timer);
+        
         if (!isWin) {
             alert('bannnnnnnnng');
             rows.forEach(r => {
@@ -163,6 +170,11 @@ function Game() {
 
         cell.dom.classList.toggle('marked');
         cell.marked = !cell.marked;
+    }
+
+    const addTimePassed = () => {
+        const timePassed = document.getElementById('timePassed');
+        timePassed.innerText = Number(timePassed.innerText) + 1;
     }
 
 };
