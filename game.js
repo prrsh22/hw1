@@ -1,12 +1,13 @@
 function Game() {
     const gameBoard = document.getElementById('gameBoard');
-    const rows = [];
+    let rows = [];
 
     let width;
     let height;
     let numberOfMines;
     let gameEnded = false;
     let timer;
+    let isRestarting = false;
 
     const initialScreenSetting = () => {
         const startBtn = document.getElementById('startBtn');
@@ -41,9 +42,12 @@ function Game() {
 
     const initGame = ({isValid, width, height, numberOfMines}) => {
 
+        gameBoard.innerHTML = '';
+
         if (!isValid) return;
 
-        document.getElementById('initialScreen').remove();
+        const initialScreen = document.getElementById('initialScreen')
+        initialScreen && initialScreen.remove();
 
         //메뉴, 상태바 삽입
         const statusBar = document.createElement('div');
@@ -60,6 +64,14 @@ function Game() {
             </div>
         `
         gameBoard.appendChild(statusBar);
+
+        const restartBtn = document.getElementById('restartBtn');
+
+        restartBtn.addEventListener('click', () => {
+            if (isRestarting) return;
+            isRestarting = true;
+            restart();
+        });
 
         // 지뢰 넣을 인덱스 설정(순서 섞기)
         let cells = Array(width * height).fill(false);
@@ -116,7 +128,7 @@ function Game() {
     const gameOver = (isWin) => {
         gameEnded = true;
         clearInterval(timer);
-        
+
         if (!isWin) {
             alert('bannnnnnnnng');
             rows.forEach(r => {
@@ -175,6 +187,16 @@ function Game() {
     const addTimePassed = () => {
         const timePassed = document.getElementById('timePassed');
         timePassed.innerText = Number(timePassed.innerText) + 1;
+    }
+
+    const restart = () => {
+        isRestarting = false;
+        gameEnded = false;
+        rows = [];
+        clearInterval(timer);
+
+        gameBoard.innerText = `기존 설정(${width} * ${height}, 지뢰 ${numberOfMines}개)으로 맵을 다시 만드는 중입니다..`;
+        setTimeout(() => initGame({isValid: true, width, height, numberOfMines}), 2000);
     }
 
 };
