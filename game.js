@@ -49,10 +49,10 @@ function Game() {
         statusBar.className = 'statusBar';
         statusBar.innerHTML = `
             <div>
-                남은 지뢰 개수: <span id="minesLeft"></span>
+                남은 지뢰 개수: <span id="minesLeft">${numberOfMines}</span>
             </div>
             <div>
-                게임 시간: <span id="timePassed"></span>
+                게임 시간(초): <span id="timePassed">0</span>
             </div>
             <div>
                <button id="restartBtn">재시작</button>
@@ -155,6 +155,12 @@ function Game() {
 
     const toggleMark = (cell) => {
         if (cell.clicked) return;
+
+        const minesLeft = document.getElementById('minesLeft');
+        let numberOfMinesLeft = Number(minesLeft.innerText);
+        cell.marked ? numberOfMinesLeft += 1 : numberOfMinesLeft -= 1;
+        minesLeft.innerText = numberOfMinesLeft;
+
         cell.dom.classList.toggle('marked');
         cell.marked = !cell.marked;
     }
