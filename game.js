@@ -5,6 +5,7 @@ function Game() {
     let width;
     let height;
     let numberOfMines;
+    let gameEnded = false;
 
     const initialScreenSetting = () => {
         const startBtn = document.getElementById('startBtn');
@@ -65,15 +66,14 @@ function Game() {
                 rowDom.appendChild(dom);
 
                 dom.addEventListener('click', function() {
-                    if (cell.clicked || cell.marked) return;
-
+                    if (gameEnded || cell.clicked || cell.marked) return;
                     if (cell.isMine) return gameOver(false);
-
                     openCell(cell);
                 });
 
                 dom.addEventListener('contextmenu', (e) => {
                     e.preventDefault();
+                    if (gameEnded) return;
                     toggleMark(cell);
                 });
 
@@ -93,7 +93,19 @@ function Game() {
     initialScreenSetting();
 
     const gameOver = (isWin) => {
-        if (!isWin) alert('bannnnnnnnng');
+        gameEnded = true;
+        if (!isWin) {
+            alert('bannnnnnnnng');
+            rows.forEach(r => {
+                r.filter(cell => cell.isMine).forEach(mine => {
+                    mine.dom.classList.add('mine');
+                });
+
+                r.filter(cell => !cell.isMine && cell.marked).forEach(mine => {
+                    mine.dom.classList.add('wrong');
+                })
+            });
+        }
     }
 
     const getNeighbors = (cell) => {

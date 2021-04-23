@@ -11,13 +11,20 @@ h1 {
     padding: 3px;
     width: 30px;
     height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .opened {
     background-color: lightgray;
 }
 .marked {
     background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUfcu1TUZODo5TFoKJbHmUT9qAnB01flqmwQ&usqp=CAU);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    
+}
+.mine {
+    background-image: url(https://img.icons8.com/fluent-systems-filled/452/naval-mine.png);
+}
+.wrong {
+    background-image: url(https://www.pinclipart.com/picdir/big/4-43696_the-after-party-pink-x-clipart-png-download.png), url(https://img.icons8.com/fluent-systems-filled/452/naval-mine.png);
 }
