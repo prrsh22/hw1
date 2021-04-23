@@ -9,7 +9,22 @@ function Game() {
     let timer;
     let isRestarting = false;
 
-    const initialScreenSetting = () => {
+    const loadInitialScreen = () => {
+        const initialScreen = document.getElementById('initialScreen');
+        initialScreen.innerHTML = `
+            <p>가로, 세로 모두 5 이상 30 이하여야 합니다.</p>
+            <div>
+                맵 가로 길이: <input id="widthInput" type="number" name="width" />
+            </div>
+            <div>
+                맵 세로 길이: <input id="heightInput" type="number" name="height" />
+            </div>
+            <div>
+                지뢰 개수: <input id="numberOfMinesInput" type="number" name="numberOfMines" />
+            </div>
+            <button id="startBtn">게임 시작</button>
+        `;
+
         const startBtn = document.getElementById('startBtn');
         startBtn.addEventListener('click', () => {
             initGame(checkInput());
@@ -34,7 +49,7 @@ function Game() {
                 isValid = true;
             }
         } else {
-            alert('모든 값을 입력해주세요!');
+            alert('모든 값을 제대로 입력해주세요!');
         }
 
         return {isValid, width, height, numberOfMines};
@@ -122,8 +137,6 @@ function Game() {
         timer = setInterval(addTimePassed, 1000);
 
     }
-
-    initialScreenSetting();
 
     const gameOver = (isWin) => {
         gameEnded = true;
@@ -214,6 +227,8 @@ function Game() {
             return gameOver(true);
         }
     }
+
+    loadInitialScreen();
 };
 
 Game();
