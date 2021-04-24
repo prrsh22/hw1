@@ -213,7 +213,7 @@ function Game() {
         rows = [];
         clearInterval(timer);
 
-        gameBoard.innerText = `기존 설정(${width} * ${height}, 지뢰 ${numberOfMines}개)으로 맵을 다시 만드는 중입니다..`;
+        gameBoard.innerHTML = `<p>기존 설정(${width} * ${height}, 지뢰 ${numberOfMines}개)으로 맵을 다시 만드는 중입니다..</p>`;
         setTimeout(() => initGame({isValid: true, width, height, numberOfMines}), 2000);
     }
 

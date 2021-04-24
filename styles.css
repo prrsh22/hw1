@@ -1,10 +1,23 @@
+* {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
 h1 {
     color: deeppink;
 }
-
-.row {
+.row, .statusBar, .cell {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 .cell {
     border: 1px solid #ccc;
@@ -20,7 +33,6 @@ h1 {
 }
 .marked {
     background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUfcu1TUZODo5TFoKJbHmUT9qAnB01flqmwQ&usqp=CAU);
-    
 }
 .mine {
     background-image: url(https://img.icons8.com/fluent-systems-filled/452/naval-mine.png);
@@ -28,10 +40,16 @@ h1 {
 .wrong {
     background-image: url(https://www.pinclipart.com/picdir/big/4-43696_the-after-party-pink-x-clipart-png-download.png), url(https://img.icons8.com/fluent-systems-filled/452/naval-mine.png);
 }
-.statusBar {
-    display: flex;
-    flex-direction: row;
+.statusBar, #initialScreen div, p {
+    margin: 10px 0;
 }
 .statusBar div {
-    margin: 0 20px 20px 0;
+    margin: 0 10px;
+}
+button {
+    padding: 5px;
+    background-color: pink;
+    border: 3px outset pink;
+    font-size: 15px;
+    border-radius: .5rem;
 }
