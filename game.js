@@ -7,7 +7,6 @@ function Game() {
     let numberOfMines;
     let gameEnded = false;
     let timer;
-    let isRestarting = false;
 
     const loadInitialScreen = () => {
         const initialScreen = document.getElementById('initialScreen');
@@ -57,14 +56,14 @@ function Game() {
 
     const initGame = ({isValid, width, height, numberOfMines}) => {
 
-        gameBoard.innerHTML = '';
-
         if (!isValid) return;
 
-        const initialScreen = document.getElementById('initialScreen')
+        gameBoard.innerHTML = '';
+
+        const initialScreen = document.getElementById('initialScreen');
         initialScreen && initialScreen.remove();
 
-        //메뉴, 상태바 삽입
+        //상태바 삽입
         const statusBar = document.createElement('div');
         statusBar.className = 'statusBar';
         statusBar.innerHTML = `
@@ -81,10 +80,7 @@ function Game() {
         gameBoard.appendChild(statusBar);
 
         const restartBtn = document.getElementById('restartBtn');
-
         restartBtn.addEventListener('click', () => {
-            if (isRestarting) return;
-            isRestarting = true;
             restart();
         });
 
@@ -148,13 +144,13 @@ function Game() {
             alert('😱으악! 지뢰입니다!😱');
         }
 
-        rows.forEach(r => {
-            r.filter(cell => cell.isMine).forEach(mine => {
+        rows.forEach(row => {
+            row.filter(cell => cell.isMine).forEach(mine => {
                 mine.dom.classList.add('mine');
             });
 
-            r.filter(cell => !cell.isMine && cell.marked).forEach(mine => {
-                mine.dom.classList.add('wrong');
+            row.filter(cell => !cell.isMine && cell.marked).forEach(wrongMark => {
+                wrongMark.dom.classList.add('wrong');
             })
         });
     }
@@ -208,7 +204,6 @@ function Game() {
     }
 
     const restart = () => {
-        isRestarting = false;
         gameEnded = false;
         rows = [];
         clearInterval(timer);
